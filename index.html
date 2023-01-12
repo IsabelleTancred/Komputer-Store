@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komputer Store</title>
+    <link href="stylesheet.css" rel="stylesheet">
+</head>
+<body>
+    <h3>Komputer Store</h3>
+    <div>
+    <h4>Bank</h4>
+    <p>Balance:</p>
+    <span id="balance">0kr</span>
+    <button id="loan">Loan</button>
+    <p>Note: Maximum loan is two times your current balance. Loan will not be approved if you already have a current debt.</p>
+    <p>Debt:</p>   
+    <span id="debt">0 sek</span>
+    </div>
+    <div>
+    <h4>Work</h4>
+    <p>Salary:</p>
+    <span id="salary">0 SEK</span>
+    <button id="work">Work</button>
+    <p>Each time you work you earn 100kr</p>
+    <button id="transferBank">Transfer to bank</button>
+    <p>Note: if you have an outstanding loan, 10% of the salary gets transfered towards your loan</p>
+    <button id="payLoan">Repay Loan</button>
+    <p>Salary is used to pay off debt</p>
+    </div>
+    <div>
+    <h4>Laptops</h4>
+    <select name="Laptops" id="laptopMenu"></select>
+    <span id="laptopName"></span>
+    <span id="laptopPrice"></span>
+    <button id="pay">Pay Now</button>
+    <p id="laptopDescription"></p>
+    <img src="" alt="Picture of laptop" id="laptopImage">
+    </div>
+    <script src="app.js"></script>
+
+
+
+</body>
+</html>
