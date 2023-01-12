@@ -8,8 +8,9 @@ const payLoanElement = document.getElementById("payLoan");
 const laptopMenuElement = document.getElementById("laptopMenu");
 const laptopNameElement = document.getElementById("laptopName");
 const laptopPriceElement = document.getElementById("laptopPrice");
-const laptopImageElement = document.getElementById("laptopImage").src=("");
+const laptopImageElement = document.getElementById("laptopImage");
 const laptopDescriptionElement = document.getElementById("laptopDescription");
+const imageBaseUrl = "https://hickory-quilled-actress.glitch.me/"; 
 
 let laptops = [];
 let features = [];
@@ -24,7 +25,8 @@ const addLaptopsToMenu = (laptops) => {
     laptopNameElement.innerHTML = laptops[0].title;
     laptopPriceElement.innerHTML = laptops[0].price;
     laptopDescriptionElement.innerHTML = laptops[0].description;
-    laptopImageElement.baseURI = laptops[0].image;
+    laptopImageElement.innerHTML = laptops[0].image;
+    laptopImageElement.setAttribute ('src', (imageBaseUrl + laptops[0].image));
 
 }  
 
@@ -40,7 +42,7 @@ const handleLaptopMenuChange = e => {
     laptopNameElement.textContent = selectedLaptop.title;
     laptopPriceElement.textContent = selectedLaptop.price;
     laptopDescriptionElement.textContent = selectedLaptop.description;
-    laptopImageElement.textContent = "https://hickory-quilled-actress.glitch.me/" + selectedLaptop.image;
+    laptopImageElement.setAttribute('src', (imageBaseUrl + selectedLaptop.image));
     
 }
 
