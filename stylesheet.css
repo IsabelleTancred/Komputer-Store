@@ -4,7 +4,26 @@ div{
     padding: 20px;
     width: 45%;
 }
-
-h3{
-    color: red;
+header{
+    visibility: visible;
+    background-color: black;
+    justify-content: stretch;
+    align-items: flex-start;
 }
+h3{
+    color: white;
+}
+h4{
+    font-family: "Times New Roman", Times, serif;
+    color: gray;
+}
+
+p{
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12px;
+}
+img{
+    width: 80%;
+}
+
+
