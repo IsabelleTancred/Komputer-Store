@@ -1,185 +1,225 @@
-//import bank from "./bank";
 const laptopMenuElement = document.getElementById("laptopMenu");
 const laptopNameElement = document.getElementById("laptopName");
 const laptopPriceElement = document.getElementById("laptopPrice");
 const laptopImageElement = document.getElementById("laptopImage");
 const laptopDescriptionElement = document.getElementById("laptopDescription");
 const imageBaseUrl = "https://hickory-quilled-actress.glitch.me/"; 
-const loanButtonElement = document.getElementById("loan");
-const payLaptopElement = document.getElementById("pay");
-const workButtonElement = document.getElementById("work");
-const transferButtonElement = document.getElementById("transferBank");
-const payLoanButtonElement = document.getElementById("payLoan");
-const balanceElement = document.getElementById("balance");
-const debtElement = document.getElementById("debt");
-const salaryElement = document.getElementById("salary");
+const featureListElement = document.getElementById("featureList");
 
 
 let laptops = [];
 let features = [];
 
+// function too add SEK to any number
+function toSek (num){
+    return (new Intl.NumberFormat('se-DE',{ style: 'currency', currency: 'SEK' }).format(num));
+}
+
+//fetch API
 fetch("https://hickory-quilled-actress.glitch.me/computers")
     .then(response => response.json())
     .then(data => laptops = data)
     .then(laptops => addLaptopsToMenu(laptops));
 
+//function to add laptops to menu, sets the first view to show the first laptop from the API     
 const addLaptopsToMenu = (laptops) => {
     laptops.forEach(x => addLaptopToMenu(x))
     laptopNameElement.innerHTML = laptops[0].title;
-    laptopPriceElement.innerHTML = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(laptops[0].price));
+    laptopPriceElement.innerHTML = toSek(laptops[0].price);
     laptopDescriptionElement.innerHTML = laptops[0].description;
     laptopImageElement.innerHTML = laptops[0].image;
     laptopImageElement.setAttribute ('src', (imageBaseUrl + laptops[0].image));
+    features = laptops[0].specs;
+    features.forEach((item)=>{
+        let dt = document.createElement("dt");
+        dt.innerText = item;
+        featureListElement.appendChild(dt);
+      })
 
 }  
 
+//function to add each laptop from API as an option in the select menu
 const addLaptopToMenu = (laptop) => {
     const laptopElement = document.createElement ("option");
     laptopElement.value = laptop.id;
     laptopElement.appendChild(document.createTextNode(laptop.title));
     laptopMenuElement.appendChild(laptopElement);
+
 }
+
 
 const handleLaptopMenuChange = e => {
     const selectedLaptop = laptops [e.target.selectedIndex];
     laptopNameElement.textContent = selectedLaptop.title;
-    laptopPriceElement.textContent = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(selectedLaptop.price));
+    laptopPriceElement.textContent = toSek(selectedLaptop.price);
     laptopDescriptionElement.textContent = selectedLaptop.description;
     laptopImageElement.setAttribute('src', (imageBaseUrl + selectedLaptop.image));
-    
+    features = selectedLaptop.specs;
+    while(featureListElement.hasChildNodes())
+    {
+        featureListElement.removeChild(featureListElement.firstChild)
+    }
+    features.forEach((item)=>{
+        let dt = document.createElement("dt");
+        dt.innerText = item;
+        featureListElement.appendChild(dt);
+      })
+      
+      
+
 }
+laptopMenuElement.addEventListener("click", handleLaptopMenuChange);
+
+const balanceElement = document.getElementById("balance");
+const debtElement = document.getElementById("debt");
+const salaryElement = document.getElementById("salary");
+const debtTextElement = document.getElementById("debtText");
+
 let balance = 0;
 let debt = 0;
 let salary = 0;
 
-const deposit = amount => {
-    balance += amount;
-    
-    balanceElement.innerHTML= (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(balance)).toString();
+function hasLoan(debt) {
+  if (debt <= 0) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
+function hasSalary(salary) {
+  if (salary <= 0) {
+    return false;
+  } else {
+    return true;
+  }
 }
-const earn = amount => {
-    salary += amount;
-    salaryElement.innerHTML= (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(salary)).toString();
+
+function hideOrShowLoanElements(debt) {
+  if (!hasLoan(debt)) {
+    debtElement.style.display = "none";
+    debtTextElement.style.display = "none";
+    payLoanButtonElement.style.display = "none";
+  }
+  else {
+    debtElement.style.display = "block"
+    debtTextElement.style.display = "block";
+    payLoanButtonElement.style.display = "block";
+  }
+}
+
+balanceElement.innerHTML = toSek(balance);
+debtElement.innerHTML = toSek(debt);
+salaryElement.innerHTML = toSek(salary)
 
 
-}
-const withdraw = amount => {
-    balance-=amount;
-    balanceElement.innerHTML=(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(balance)).toString();
+const deposit = (amount) => {
+  balance += amount;
+  balanceElement.innerHTML = toSek(balance);
+};
+const earn = (amount) => {
+  salary += amount;
+  salaryElement.innerHTML = toSek(salary);
+};
+const withdraw = (amount) => {
+  balance -= amount;
+  balanceElement.innerHTML = toSek(balance);
+};
+const paySalary = (amount) => {
+  salary -= amount;
+  salaryElement.innerHTML = toSek(salary);
+};
 
-}
-const paySalary = amount => {
-    salary-=amount;
-    salaryElement.innerHTML= (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(salary)).toString();
+const transfer = (amount) => {
+  let ten = amount / 10;
+  let rest = amount - ten;
+  let debtRest = amount - debt;
+  if (debt < ten) {
+    loanPayment(debt);
+    deposit(debtRest);
+  } else if (debt > 0) {
+    loanPayment(ten);
+    deposit(rest);
+  } else {
+    deposit(amount);
+  }
+  paySalary(amount);
+};
 
-}
-const transfer = amount => {
-    let ten = amount/10;
-    let rest = amount - ten;
-    let rest2 = amount - debt;
-    if (debt<ten){
-        loanPayment(debt);
-        deposit (rest2);
+const getDebt = (amount) => {
+  debt += amount;
+  debtElement.innerHTML = toSek(debt);
+  hideOrShowLoanElements(debt);
+};
+const loanPayment = (amount) => {
+  debt -= amount;
+  debtElement.innerHTML = toSek(debt);
+  hideOrShowLoanElements(debt);
+};
 
-    }
-    else if (debt>0) {
-        loanPayment(ten);
-        deposit (rest);
-    }
-    else{
-        deposit (amount);
-    }
-    paySalary(amount)
-}
-const getDebt = amount => {
-    debt+=amount;
-    debtElement.innerHTML=(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(debt)).toString();
-
-}
-const loanPayment = amount => {
-    debt-=amount;
-    debtElement.innerHTML=(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'SEK' }).format(debt)).toString();
-    
-}
-const getBalance = () => {
-    return balance;
-}
 const bank = {
-    deposit,
-    withdraw,
-    getBalance,
-}
+  deposit,
+  earn,
+  withdraw,
+  paySalary,
+  transfer,
+  getDebt,
+  loanPayment,
+};
 
+const loanButtonElement = document.getElementById("loan");
+const payLaptopElement = document.getElementById("pay");
+const workButtonElement = document.getElementById("work");
+const transferButtonElement = document.getElementById("transferBank");
+const payLoanButtonElement = document.getElementById("payLoan");
 
-laptopMenuElement.addEventListener("click", handleLaptopMenuChange);
-
-const handleLoanButton = e => {
-    const aNumber = Number(window.prompt("Type a number", ""));
-    if (aNumber<=(balance*2) & debt==0) {
-        deposit(aNumber);
-        getDebt (aNumber)
-        console.log("debt" + debt);
-        console.log("balance " + balance);
-    }
-    else if (debt>0){
-        alert("You can only have one loan");
-    }
-    else {
-        alert("You don't have enough money");
-    }
-
-
-}
+const handleLoanButton = (e) => {
+  const aNumber = Number(window.prompt("Type a number", ""));
+  if ((aNumber <= balance * 2) & (debt == 0)) {
+    deposit(aNumber);
+    getDebt(aNumber);
+  } else if (debt > 0) {
+    alert("You can only have one loan");
+  } else if ((aNumber > balance * 2)){
+    alert("You don't have enough money");
+  }
+  else{
+    alert("Wrong input, use digits");
+  }
+};
 loanButtonElement.addEventListener("click", handleLoanButton);
 
-const handleWorkButton = e => {
-    earn(100);
-    console.log('You just earned' + salary);
-    
-
-}
-const handleTransferButton =  e => {
-    console.log ("balance before " + balance);
-    console.log("debt before" + debt);
-    console.log ("salary before" + salary);
-    transfer (salary);
-    console.log("debt now" + debt);
-    console.log("balance now " + balance);
-    console.log ("salary now" + salary);
-
-}
-const handlePayLoanButton = e => {
-    let salary2=salary;
-    if (salary2 > debt) {
-        alert ("you pay to much")
-        console.log ("debt" + debt)
-        console.log ("salary" + salary)
-    }
-    else {
-    loanPayment(salary2);
-    paySalary (salary2);
-    console.log ("debt" + debt)
-    console.log ("salary" + salary)
-    }
-}
-const handlePayButton = e => {
-    if (balance>=laptopPriceElement.innerHTML) {
-        console.log ("balance before:" + balance);
-        withdraw (laptopPriceElement.innerHTML);
-        console.log ("balance after" + balance);
-        console.log (laptopPriceElement.innerHTML)
-
-    }
-    else {
-        alert("You can't afford this computer");
-    }
-}
-
-payLaptopElement.addEventListener("click", handlePayButton);
+const handleWorkButton = (e) => {
+  earn(100);
+};
 workButtonElement.addEventListener("click", handleWorkButton);
+
+const handleTransferButton = (e) => {
+  transfer(salary);
+};
+
 transferButtonElement.addEventListener("click", handleTransferButton);
+
+const handlePayLoanButton = (e) => {
+  let salary2 = salary;
+  if (salary2 > debt) {
+    alert("you pay to much");
+  } else {
+    loanPayment(salary2);
+    paySalary(salary2);
+  }
+};
+
 payLoanButtonElement.addEventListener("click", handlePayLoanButton);
 
+const handlePayButton = (e) => {
+  if (balance >= laptopPriceElement.innerHTML) {
+    withdraw(laptopPriceElement.innerHTML);
+  } else {
+    alert("You can't afford this computer");
+  }
+};
 
+payLaptopElement.addEventListener("click", handlePayButton);
 
+hideOrShowLoanElements (debt);
