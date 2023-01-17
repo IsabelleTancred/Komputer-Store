@@ -10,61 +10,68 @@
 </head>
 
 <body>
-
-    <div class="bigBox">
-        <div class="header">
-            <h1>Komputer Store</h1>
-            </header>
+    <div class="fullPage">
+        <div class="leftUp">
         </div>
-
-
-        <div class="bank">
-            <h4>Bank</h4>
-            <p>Balance:</p>
-            <span class="money" id="balance">0kr</span>
-            <button  id="loan">Loan</button>
-            <p>Note: Maximum loan is two times your current balance. Loan will not be approved if you already have a
-                current debt.</p>
-            <p  id="debtText">Debt:</p>
-            <span class="money" id="debt">0 sek</span>
+        <div class="rightUp">
         </div>
-
-        <div class="work">
-            <h4>Work</h4>
-            <p>Salary:</p>
-            <span class="money" id="salary">0 SEK</span>
-            <button id="work">Work</button>
-            <p>Each time you work you earn 100kr</p>
-            <button id="transferBank">Transfer to bank</button>
-            <p>Note: if you have an outstanding loan, 10% of the salary gets transfered towards your loan</p>
-            <button id="payLoan">Repay Loan</button>
-            <p>Salary is used to pay off debt</p>
+        <div class="leftHead">
+            <h1 class="computer">KOMPUTER</h1>
         </div>
-
-        <div class="laptops">
-            <h4>Laptops</h4>
-            <select name="Laptops" id="laptopMenu"></select>
-            <div class="laptopDisplay">
-
-                <div class="laptopInfo">
-                    <span class="laptopName" id="laptopName"></span>
-                    <p id="laptopDescription"></p>
+        <div class="rightHead">
+            <h1 class="store">STORE</h1>
+        </div>
+        <div class="leftPage">
+            <div class="bankAndWork">
+                <h4>Bank</h4>
+                <div class="line">
+                    <p class="bankWords">Balance:</p>
+                    <p id="balance">0kr</p>
                 </div>
-
-                <div class="laptopImg">
-                    <img src="" alt="Picture of laptop" id="laptopImage">
+                <div class="line" id="debtSection">
+                    <p class="bankWords" id="debtText">Debt:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <p id="debt">0kr</p>
                 </div>
+                <button id="loan">Loan</button>
+            </div>
 
-                <div class="laptopFeatures">
-                    <h5>Features</h5>
-                    <dl id="featureList">
-                    </dl>
+            <div class="bankAndWork">
+                <h4>Work</h4>
+                <div class="line">
+                    <p class="bankWords">Salary:</p>
+                    <p id="salary">0 kr</p>
                 </div>
+                <button id="work">Work</button>
+                <button id="transferBank">Transfer to bank</button>
+                <button id="payLoan">Repay Loan</button>
+            </div>
+        </div>
+        <div class="rightPage">
 
-                <div class="laptopPay">
-                    <span class="money" id="laptopPrice"></span>
-                    <button id="pay">Pay Now</button>
-                </div>
+            <div class="laptopSelection">
+                <h5>Laptops</h5>
+                <select name="Laptops" id="laptopMenu"></select>
+            </div>
+
+            <div class="description">
+                <h5 class="laptopName" id="laptopName"></h5>
+                <p id="laptopDescription"></p>
+            </div>
+
+            <div class="picture">
+                <img src="" alt="Picture of laptop" id="laptopImage">
+            </div>
+
+            <div class="features">
+                <h5>Features</h5>
+                <dl id="featureList">
+                </dl>
+            </div>
+
+            <div class="purchase">
+                <span class="money" id="laptopPrice">0kr</span>
+                <button id="pay">Pay Now</button>
+
             </div>
         </div>
     </div>
