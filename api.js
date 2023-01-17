@@ -53,6 +53,10 @@ const handleLaptopMenuChange = e => {
     laptopPriceElement.textContent = toSek(selectedLaptop.price);
     laptopDescriptionElement.textContent = selectedLaptop.description;
     laptopImageElement.setAttribute('src', (imageBaseUrl + selectedLaptop.image));
+    laptopImageElement.onerror = function() {changeImage()};
+    function changeImage() {
+      laptopImageElement.setAttribute('src', (imageBaseUrl + changeImgFormat(selectedLaptop.image)));
+    }
     features = selectedLaptop.specs;
     while(featureListElement.hasChildNodes())
     {
@@ -63,17 +67,25 @@ const handleLaptopMenuChange = e => {
         dt.innerText = item;
         featureListElement.appendChild(dt);
       })
-      
-      
-
 }
 laptopMenuElement.addEventListener("click", handleLaptopMenuChange);
+
+function changeImgFormat(str){
+  let str1 = "jpg";
+  let str2 = "png";
+  if (str.includes(str1)){
+    return (str.replace(/jpg/i, str2))
+  }
+  else if (str.includes(str2)){
+    return (str.replace(/png/i, str1))
+  }
+}
 
 const balanceElement = document.getElementById("balance");
 const debtElement = document.getElementById("debt");
 const salaryElement = document.getElementById("salary");
-const debtTextElement = document.getElementById("debtText");
 const debtDivElement = document.getElementById("debtSection");
+const debtInfoElement = document.getElementById("debtInfo");
 
 let balance = 0;
 let debt = 0;
@@ -99,10 +111,12 @@ function hideOrShowLoanElements(debt) {
   if (!hasLoan(debt)) {
     debtDivElement.style.display = "none";
     payLoanButtonElement.style.display = "none";
+    debtInfoElement.style.display = "none";
   }
   else {
     debtDivElement.style.display = "block";
     payLoanButtonElement.style.display = "block";
+    debtInfoElement.style.display = "block";
   }
 }
 

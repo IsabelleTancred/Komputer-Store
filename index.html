@@ -22,7 +22,7 @@
             <h1 class="store">STORE</h1>
         </div>
         <div class="leftPage">
-            <div class="bankAndWork">
+            <div class="bankAndWork" id="bankDiv">
                 <h4>Bank</h4>
                 <div class="line">
                     <p class="bankWords">Balance:</p>
@@ -33,17 +33,24 @@
                     <p id="debt">0kr</p>
                 </div>
                 <button id="loan">Loan</button>
+                <p class="notations">Note: You can't take more than one loan. 
+                    You can't loan more than twice the amount of your current balance. </p>
             </div>
 
-            <div class="bankAndWork">
+            <div class="bankAndWork" id="workDiv">
                 <h4>Work</h4>
                 <div class="line">
                     <p class="bankWords">Salary:</p>
                     <p id="salary">0 kr</p>
                 </div>
                 <button id="work">Work</button>
+                <div class="line">
                 <button id="transferBank">Transfer to bank</button>
-                <button id="payLoan">Repay Loan</button>
+                <button id="payLoan">Repay Loan</button></div>
+                <p id="debtInfo" class="notations">Note: Because you have a loan, 
+                    10% of your salary will be used to pay off your current debt </p>
+                
+
             </div>
         </div>
         <div class="rightPage">
@@ -59,8 +66,7 @@
             </div>
 
             <div class="picture">
-                <img src="" alt="Picture of laptop" id="laptopImage" >    
-                
+                <img src="" alt="Picture of laptop" id="laptopImage"  >    
             </div>
 
             <div class="features">
