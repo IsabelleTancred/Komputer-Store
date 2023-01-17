@@ -212,9 +212,14 @@ const handlePayLoanButton = (e) => {
 
 payLoanButtonElement.addEventListener("click", handlePayLoanButton);
 
+function fromSek (str){
+  const r = /\d+/;
+  return (str.match(r));
+}
 const handlePayButton = (e) => {
-  if (balance >= laptopPriceElement.innerHTML) {
-    withdraw(laptopPriceElement.innerHTML);
+  if (balance >= fromSek(laptopPriceElement.innerHTML)) {
+    withdraw(fromSek(laptopPriceElement.innerHTML));
+    alert("Congratulation! You are now the owner of the " + laptopNameElement.innerHTML );
   } else {
     alert("You can't afford this computer");
   }
