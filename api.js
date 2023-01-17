@@ -47,7 +47,6 @@ const addLaptopToMenu = (laptop) => {
 
 }
 
-
 const handleLaptopMenuChange = e => {
     const selectedLaptop = laptops [e.target.selectedIndex];
     laptopNameElement.textContent = selectedLaptop.title;
@@ -74,6 +73,7 @@ const balanceElement = document.getElementById("balance");
 const debtElement = document.getElementById("debt");
 const salaryElement = document.getElementById("salary");
 const debtTextElement = document.getElementById("debtText");
+const debtDivElement = document.getElementById("debtSection");
 
 let balance = 0;
 let debt = 0;
@@ -97,13 +97,11 @@ function hasSalary(salary) {
 
 function hideOrShowLoanElements(debt) {
   if (!hasLoan(debt)) {
-    debtElement.style.display = "none";
-    debtTextElement.style.display = "none";
+    debtDivElement.style.display = "none";
     payLoanButtonElement.style.display = "none";
   }
   else {
-    debtElement.style.display = "block"
-    debtTextElement.style.display = "block";
+    debtDivElement.style.display = "block";
     payLoanButtonElement.style.display = "block";
   }
 }
@@ -213,11 +211,11 @@ const handlePayLoanButton = (e) => {
 payLoanButtonElement.addEventListener("click", handlePayLoanButton);
 
 function fromSek (str){
-  const r = /\d+/;
-  return (str.match(r));
+  const res = str.replace(/\D/g, "");
+  return (res/100);
 }
 const handlePayButton = (e) => {
-  if (balance >= fromSek(laptopPriceElement.innerHTML)) {
+  if (balance >=fromSek(laptopPriceElement.innerHTML)) {
     withdraw(fromSek(laptopPriceElement.innerHTML));
     alert("Congratulation! You are now the owner of the " + laptopNameElement.innerHTML );
   } else {
