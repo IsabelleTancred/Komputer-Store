@@ -19,3 +19,6 @@ The area works as follows.
 ### Challenges and future improvments
 Before this project I hadn't done much frontend, so I challanged myself to create a fun design and not use the given example wire frame. I struggled a bit with css but eventually managed to create a decent webdesign. It stil has some allign and rescaling problems, however given the time-limit and requirements of the project I didn't focus to much on improving those parts.
 As for now, the project only has one JavaScript file, I probably should have used modules and divide the big JS-file into smaller JS-files to achieve a better structure. 
+
+### Github Pages
+See the project here: https://isabelletancred.github.io/Komputer-Store/
