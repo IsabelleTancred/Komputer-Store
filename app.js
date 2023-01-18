@@ -183,15 +183,15 @@ const loanPayment = (amount) => {
 
 //function to handle input value from loan button, logic to check if loan is possible and handling loan.
 const getLoan = (input) => {
-  if ((input <= balance * 2) & (debt == 0)) {
+  if (debt > 0) {
+    alert("You can only have one loan");
+  } else if (input <= balance * 2) {
     deposit(input);
     getDebt(input);
-  } else if (input > 0) {
-    alert("You can only have one loan");
   } else if (input > balance * 2) {
     alert("You don't have enough money");
   } else {
-    alert("Wrong input, use digits");
+    alert("Wrong input");
   }
 };
 
