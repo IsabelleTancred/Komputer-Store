@@ -8,7 +8,7 @@ The webpage needed to have the following:
 * Work – an area to increase your earnings and deposit cash into your bank balance
 * Laptops – an area to select and display information about the merchandise
 
-The area works as follows.
+The areas works as follows:
 
 **Bank** - Shows your balance. Gives you the option to take a loan. However you can only have one loan and you can't borrow more than twice of your balance. If you have a loan, bank will show your debt.
 
@@ -19,3 +19,6 @@ The area works as follows.
 ### Challenges and future improvments
 Before this project I hadn't done much frontend, so I challanged myself to create a fun design and not use the given example wire frame. I struggled a bit with css but eventually managed to create a decent webdesign. It stil has some allign and rescaling problems, however given the time-limit and requirements of the project I didn't focus to much on improving those parts.
 As for now, the project only has one JavaScript file, I probably should have used modules and divide the big JS-file into smaller JS-files to achieve a better structure. 
+
+### Github Pages
+See the project here: https://isabelletancred.github.io/Komputer-Store/
