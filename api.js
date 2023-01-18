@@ -137,7 +137,7 @@ const withdraw = (amount) => {
   balance -= amount;
   balanceElement.innerHTML = toSek(balance);
 };
-const paySalary = (amount) => {
+const clearSalary = (amount) => {
   salary -= amount;
   salaryElement.innerHTML = toSek(salary);
 };
@@ -155,7 +155,7 @@ const transfer = (amount) => {
   } else {
     deposit(amount);
   }
-  paySalary(amount);
+  clearSalary(amount);
 };
 
 const getDebt = (amount) => {
@@ -173,7 +173,7 @@ const bank = {
   deposit,
   earn,
   withdraw,
-  paySalary,
+  clearSalary,
   transfer,
   getDebt,
   loanPayment,
@@ -214,12 +214,15 @@ transferButtonElement.addEventListener("click", handleTransferButton);
 
 const handlePayLoanButton = (e) => {
   let salary2 = salary;
+  let salary3=(salary2-debt)
   if (salary2 > debt) {
-    alert("you pay to much");
+    let salary3=(salary2-debt);
+    loanPayment(debt);
+    deposit(salary3);
   } else {
     loanPayment(salary2);
-    paySalary(salary2);
   }
+  clearSalary(salary2);
 };
 
 payLoanButtonElement.addEventListener("click", handlePayLoanButton);
