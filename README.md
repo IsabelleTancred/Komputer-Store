@@ -8,7 +8,7 @@ The webpage needed to have the following:
 * Work – an area to increase your earnings and deposit cash into your bank balance
 * Laptops – an area to select and display information about the merchandise
 
-The area works as follows.
+The areas works as follows.
 
 **Bank** - Shows your balance. Gives you the option to take a loan. However you can only have one loan and you can't borrow more than twice of your balance. If you have a loan, bank will show your debt.
 
