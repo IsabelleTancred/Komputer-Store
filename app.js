@@ -52,7 +52,7 @@ fetch("https://hickory-quilled-actress.glitch.me/computers")
 
 //function to add laptops to menu select, start-page shows the first laptop in select-menu
 const addLaptopsToMenu = (laptops) => {
-  let firstLaptop = laptops[0];
+  firstLaptop = laptops[0];
   laptops.forEach((x) => addLaptopToMenu(x));
   display(laptopNameElement, firstLaptop.title);
   display(laptopPriceElement, toSek(firstLaptop.price));
@@ -94,8 +94,8 @@ laptopMenuElement.addEventListener("click", handleLaptopMenuChange);
 
 // function to change img format from jpg to png, or from png to jpg
 function changeImgFormat(str) {
-  let str1 = "jpg";
-  let str2 = "png";
+  const str1 = "jpg";
+  const str2 = "png";
   if (str.includes(str1)) {
     return str.replace(/jpg/i, str2);
   } else if (str.includes(str2)) {
@@ -105,6 +105,7 @@ function changeImgFormat(str) {
 
 /*below Bank functions, and bank logic should probably be in an own JS-file*/
 
+//this variables should probably have used getters and setters
 let balance = 0;
 let debt = 0;
 let salary = 0;
