@@ -9,8 +9,11 @@ The webpage needed to have the following:
 * Laptops – an area to select and display information about the merchandise
 
 The area works as follows.
+
 **Bank** - Shows your balance. Gives you the option to take a loan. However you can only have one loan and you can't borrow more than twice of your balance. If you have a loan, bank will show your debt.
+
 **Work** - Work shows your salary. Each time work button is presses you earn 100. The transfer button moves your current salary to the bank. If you have a loan 10% is used to pay loan, rest is moved to balance. You also have the option to pay of the loan with all of your earnings by using the "pay loan" button.
+
 **Laptops** - Here you can find information about different computers. The select menu have several different computers and by selecting a new computer in the select menu, information about the selected computer will be shown. If you have enough balance, you can buy the computer.
 
 ### Challenges and future improvments
